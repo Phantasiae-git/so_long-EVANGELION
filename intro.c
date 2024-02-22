@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:11:34 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/22 06:44:30 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/22 07:04:06 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ int     change_menu(int keycode, t_data *data)
 {
     static int flag_menu;
     
-    printf("hello?\n");
-    flag_menu=1;
-    if(keycode==126 || keycode==125 || keycode=='w' || keycode=='s')
+    if(flag_menu && (keycode=='s' || keycode== 65364))
     {
-        if(flag_menu)
-            mlx_put_image_to_window(data->mlx, data->win, data->loadscreen[1], 0, 0);
-        else
-            mlx_put_image_to_window(data->mlx, data->win, data->loadscreen[0], 0, 0);
+        mlx_put_image_to_window(data->mlx, data->win, data->loadscreen[1], 0, 0);
+        flag_menu=0;
+    }
+    else if(!flag_menu && (keycode=='w' || keycode== 65362))
+    {
+        mlx_put_image_to_window(data->mlx, data->win, data->loadscreen[0], 0, 0);
+        flag_menu=1;
     }
     return(0);
 }
@@ -47,6 +48,7 @@ void    render_menu(void)
     (data()->loadscreen[1]) = mlx_xpm_file_to_image((data()->mlx), "img/menu/menu_exit.xpm", &a, &a);
     mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[0], 0, 0);
     mlx_hook(data()->win, 02, 1L << 0, change_menu, data());
+    mlx_hook(data()->win, 17, 1L << 2, closewin, data());
     mlx_loop(data()->mlx);
 }
 
