@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:11:34 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/22 04:08:31 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/22 06:44:30 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,35 @@ int     check(t_data *data)
         i=-1;
     mlx_put_image_to_window(data->mlx, data->win, data->loadscreen[++i], 0, 0);
     ft_usleep(66);
+}
+
+int     change_menu(int keycode, t_data *data)
+{
+    static int flag_menu;
+    
+    printf("hello?\n");
+    flag_menu=1;
+    if(keycode==126 || keycode==125 || keycode=='w' || keycode=='s')
+    {
+        if(flag_menu)
+            mlx_put_image_to_window(data->mlx, data->win, data->loadscreen[1], 0, 0);
+        else
+            mlx_put_image_to_window(data->mlx, data->win, data->loadscreen[0], 0, 0);
+    }
+    return(0);
+}
+
+void    render_menu(void)
+{
+    int a;
+    data()->loadscreen = malloc(2 * sizeof(void *));
+	if (!data()->loadscreen)
+		return ;
+    (data()->loadscreen[0]) = mlx_xpm_file_to_image((data()->mlx), "img/menu/menu_play.xpm", &a, &a);
+    (data()->loadscreen[1]) = mlx_xpm_file_to_image((data()->mlx), "img/menu/menu_exit.xpm", &a, &a);
+    mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[0], 0, 0);
+    mlx_hook(data()->win, 02, 1L << 0, change_menu, data());
+    mlx_loop(data()->mlx);
 }
 
 void render_intro(char *path, int frames, int flag)
@@ -63,6 +92,12 @@ void render_intro(char *path, int frames, int flag)
 	    mlx_hook(data()->win, 17, 1L << 2, closewin, data());
         mlx_loop_hook(data()->mlx, check, data());
         mlx_loop(data()->mlx);
+        i=-1;
+        while(++i<frames)
+            mlx_destroy_image(data()->mlx, data()->loadscreen[i]);
+        free(data()->loadscreen);
+        mlx_destroy_window(data()->mlx, data()->win);
+	    mlx_destroy_display(data()->mlx);
     }
 }
 

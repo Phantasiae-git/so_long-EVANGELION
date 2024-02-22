@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/02/22 04:08:14 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/22 05:40:22 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,5 @@ int	key_hook(int keycode, t_data *data)
 
 int	menu(int keycode, t_data *data)
 {
-	printf("Key pressed\n");
-	exit(0);
+	mlx_loop_end(data->mlx);
 }

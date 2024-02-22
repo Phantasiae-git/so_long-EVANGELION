@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/22 04:12:30 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/22 06:23:14 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,8 @@ void	        images(void);
 void	        freearr(void);
 void			ft_usleep(int time);
 int				menu(int keycode, t_data *data);
+void    		render_menu(void);
+char			**getmap(char **map, int fd, int i);
+int				chkvalidmap(void);
 
 #endif
