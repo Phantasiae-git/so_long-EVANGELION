@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/02/21 21:08:57 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/22 04:08:14 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,10 @@ int	key_hook(int keycode, t_data *data)
 	if (keycode == 'w' || keycode == 'a' || keycode == 's' || keycode == 'd')
 		move(keycode);
 	return (0);
+}
+
+int	menu(int keycode, t_data *data)
+{
+	printf("Key pressed\n");
+	exit(0);
 }

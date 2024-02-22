@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/21 21:55:53 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/22 04:12:30 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <pthread.h>
 
 typedef struct s_mapdata
 {
@@ -39,6 +40,7 @@ typedef struct s_data
 	void		**image;
     void		**loadscreen;
 	t_mapdata	*map;
+	int			level;
 }				t_data;
 
 t_mapdata		*mapdata(void);
@@ -50,12 +52,13 @@ char	        *ft_strdup(const char *str);
 char	        *ft_strjoin(char const *s1, char const *s2);
 size_t          ft_strlen(const char *str);
 void	        render(int i);
-void            render_intro(void);
+void            render_intro(char *path, int frames, int flag);
 int             key_hook(int keycode, t_data *data);
 int	            closewin(void);
 void	        *ft_calloc(size_t nmemb, size_t size);
 void	        images(void);
 void	        freearr(void);
 void			ft_usleep(int time);
+int				menu(int keycode, t_data *data);
 
 #endif
