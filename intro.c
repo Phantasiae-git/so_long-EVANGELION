@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:11:34 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/22 07:04:06 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/22 07:40:22 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,6 @@ int     change_menu(int keycode, t_data *data)
         flag_menu=1;
     }
     return(0);
-}
-
-void    render_menu(void)
-{
-    int a;
-    data()->loadscreen = malloc(2 * sizeof(void *));
-	if (!data()->loadscreen)
-		return ;
-    (data()->loadscreen[0]) = mlx_xpm_file_to_image((data()->mlx), "img/menu/menu_play.xpm", &a, &a);
-    (data()->loadscreen[1]) = mlx_xpm_file_to_image((data()->mlx), "img/menu/menu_exit.xpm", &a, &a);
-    mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[0], 0, 0);
-    mlx_hook(data()->win, 02, 1L << 0, change_menu, data());
-    mlx_hook(data()->win, 17, 1L << 2, closewin, data());
-    mlx_loop(data()->mlx);
 }
 
 void render_intro(char *path, int frames, int flag)
@@ -101,5 +87,20 @@ void render_intro(char *path, int frames, int flag)
         mlx_destroy_window(data()->mlx, data()->win);
 	    mlx_destroy_display(data()->mlx);
     }
+}
+
+void    render_menu(void)
+{
+    render_intro("img/menu/menu_start/menu_start_", 25, 0);
+    int a;
+    data()->loadscreen = malloc(2 * sizeof(void *));
+	if (!data()->loadscreen)
+		return ;
+    (data()->loadscreen[0]) = mlx_xpm_file_to_image((data()->mlx), "img/menu/menu_play.xpm", &a, &a);
+    (data()->loadscreen[1]) = mlx_xpm_file_to_image((data()->mlx), "img/menu/menu_exit.xpm", &a, &a);
+    mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[0], 0, 0);
+    mlx_hook(data()->win, 02, 1L << 0, change_menu, data());
+    mlx_hook(data()->win, 17, 1L << 2, closewin, data());
+    mlx_loop(data()->mlx);
 }
 
