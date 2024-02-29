@@ -6,18 +6,21 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:28:33 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/29 18:33:01 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/29 19:07:49 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void levels(void)
+int levels(void)
 {
     int fd;
+    char *s;
     
     data()->lvl++;
-    fd = open("maps/map.ber", O_RDONLY);
+    s=ft_strjoin("maps/lvl",ft_itoa(data()->lvl));
+    s=ft_strjoin(s,".ber");
+    fd = open(s, O_RDONLY);
 	if (fd < 0)
 		return (0);
 	data()->map = mapdata();

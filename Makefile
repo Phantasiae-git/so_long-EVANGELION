@@ -8,7 +8,8 @@ SOURCEFILES	=	main.c	\
 				hooks.c		\
 				intro.c		\
 				utils.c		\
-				itoa.c
+				itoa.c		\
+				levels.c
 NAME	= eva_long
 OBJ		= ${SOURCEFILES:.c=.o}
 RM			= rm -f

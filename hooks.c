@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/02/29 18:30:00 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/29 19:08:16 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	megahook(int keycode)
 			if(data()->flag_menu==1)
 			{
 				printf("play!\n");
-				data()->state=4;//CHANGE THIS TO 3
+				data()->state=4;//CHANGE THIS TO 3, just want to test maps for now
 				data()->flag_menu=0;
 			}
 			else
@@ -114,9 +114,12 @@ int	megahook(int keycode)
 		//transition animation in video?
 		mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[data()->flag_menu], 0, 0);
 		if(keycode==65293 || keycode==32)
+		{
 			data()->state=4;
+			data()->player=data()->flag_menu;
+		}
 	}
 	else if(data()->state==4)
-		key_hook(keycode, data);
+		key_hook(keycode, data());
 	printf("STATE CHANGE (%i)\n KEYCODE= %i\n", (data()->state), keycode);
 }

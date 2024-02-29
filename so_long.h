@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/29 18:31:49 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/29 19:07:36 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_data
 	int			i;
 	int			flag_menu;
 	int			lvl;
+	int			player;
 }				t_data;
 
 t_mapdata		*mapdata(void);
@@ -71,5 +72,6 @@ char			**getmap(char **map, int fd, int i);
 int				chkvalidmap(void);
 int				change_menu(int keycode, t_data *data);
 void			render_player_sel(void);
+int				levels(void);
 
 #endif
