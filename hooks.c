@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/02/22 05:40:22 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/29 18:30:00 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,52 @@ int	key_hook(int keycode, t_data *data)
 	return (0);
 }
 
-int	menu(int keycode, t_data *data)
+int	megahook(int keycode)
 {
-	mlx_loop_end(data->mlx);
+	if(data()->state==1)
+		(data()->state)=2;
+	else if(data()->state==2)
+	{
+		if(keycode=='s' || keycode== 65364)
+		{
+			mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[1], 0, 0);
+        	data()->flag_menu=0;
+		}
+		if(keycode=='w' || keycode== 65362)
+		{
+			mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[0], 0, 0);
+        	data()->flag_menu=1;
+		}
+		if(keycode==65293 || keycode==32)//spacebar + enter
+		{
+			if(data()->flag_menu==1)
+			{
+				printf("play!\n");
+				data()->state=4;//CHANGE THIS TO 3
+				data()->flag_menu=0;
+			}
+			else
+				closewin();
+		}	
+	}
+	else if(data()->state==3)
+	{
+		if(keycode=='d' || keycode== 65363)
+		{
+			if(data()->flag_menu<2)
+        		data()->flag_menu++;
+		}
+		if(keycode=='a' || keycode== 65361)
+		{
+			if(data()->flag_menu>0)
+        		data()->flag_menu--;
+		}
+		//transition animation in video?
+		mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[data()->flag_menu], 0, 0);
+		if(keycode==65293 || keycode==32)
+			data()->state=4;
+	}
+	else if(data()->state==4)
+		key_hook(keycode, data);
+	printf("STATE CHANGE (%i)\n KEYCODE= %i\n", (data()->state), keycode);
 }

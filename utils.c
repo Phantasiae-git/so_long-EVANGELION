@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:01:27 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/21 21:55:48 by phanta           ###   ########.fr       */
+/*   Updated: 2024/02/29 18:11:24 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,23 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 int	closewin(void)
 {
-	mlx_destroy_image(data()->mlx, data()->image[0]);
-	mlx_destroy_image(data()->mlx, data()->image[1]);
-	mlx_destroy_image(data()->mlx, data()->image[2]);
-	mlx_destroy_image(data()->mlx, data()->image[3]);
-	mlx_destroy_image(data()->mlx, data()->image[4]);
-	free(data()->image);
+	int i;
+	if(data()->image)
+	{
+		mlx_destroy_image(data()->mlx, data()->image[0]);
+		mlx_destroy_image(data()->mlx, data()->image[1]);
+		mlx_destroy_image(data()->mlx, data()->image[2]);
+		mlx_destroy_image(data()->mlx, data()->image[3]);
+		mlx_destroy_image(data()->mlx, data()->image[4]);
+		free(data()->image);	
+	}
+	if(data()->loadscreen)
+	{
+		i=-1;
+		while(++i<(data()->frames))
+			mlx_destroy_image(data()->mlx, data()->loadscreen[i]);
+		free(data()->loadscreen);	
+	}
 	freearr();
 	mlx_destroy_window(data()->mlx, data()->win);
 	mlx_destroy_display(data()->mlx);
