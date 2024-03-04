@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 06:57:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/02/29 19:16:29 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/04 11:28:31 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	images(void)
 			s2, &a, &a);
 	/*(data()->image[5]) = mlx_xpm_file_to_image(data()->mlx, \
 			"img/enemy.xpm", &a, &a);*/
-	data()->player=0;//TAKE THIS OUT PLSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 	s1=ft_strjoin("img/player/", ft_itoa(data()->player));
 	s1=ft_strjoin(s1,".xpm");
 	(data()->image[2]) = mlx_xpm_file_to_image(data()->mlx, s1,

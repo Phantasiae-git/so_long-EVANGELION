@@ -1,0 +1,56 @@
+FIRST OF ALL - intro -> menu -> play: choose your character -> "level 1:" map
+
+colectibles could be just shiny dots which are special objects and at the end of each lvl if you've catched them it shows a picture (pixel art drawn by me siiiiigh) of the object and it's smth related to the story like misato's cross, the 3 computers, lance of longinus, shinji's music player... and it has a quote
+
+--------------------------------------------------
+map size=20*15?
+
+paths:
+
+level1/wall (or floor or enemy or whtv)
+level2/wall
+player/shinji (rei, asuka)
+
+string changes first part, except for player where it changes 2nd part
+
+Levels: 
+
+1 - first angel 
+2 - 
+
+3 - enemies - ramiel
+
+last one - third impact | enemies - final form rei? ambitious..... BIG HITBOX!!!!
+
+secret lvl - second impact (OR shinji's trip, or both and the trip plays if your player is shinji (IN SHINJI'S TRIP THE ENEMIES ARE THE OTHER PLAYER SPRITES)
+
+GAME ORDER:
+-intro
+-menu
+-character sel screen
+loop- cutscene (do this last (pixel art video with pixel text saying lvl x)) -> level -> collectible pic
+
+--------------------------------------------------
+
+1 folder per level - each folder contains the map data of the level
+one addtional folder for player sprites - each lvl it picks the same on from the folder
+
+second to last level the special object could be kaworu?
+
+--------------------------------------------------
+
+Additional features - worry later:
+
+Music (and crickets)
+
+Outro ("So long, and it all comes thumbling down")
+
+--------------------------------------------------
+IMPROVE CODE:
+
+-function to join several strings
+
+-function to display all frames in a video (correctly T_T)
+
+-make first intro not static
+

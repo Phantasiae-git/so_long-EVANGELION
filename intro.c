@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:11:34 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/29 18:20:42 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/04 11:27:52 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,36 @@ int     change_menu(int keycode, t_data *data)
     return(0);
 }
 
+void evil_render_intro(char *path, int frames)
+{
+    int	a;
+    int i;
+    char *s;
+    int len;
+    int j;
+
+	data()->loadscreen = malloc(frames * sizeof(void *));
+	if (!data()->loadscreen)
+		return ;
+    i=frames;
+    while(--i>=0)
+    {
+        j=-1;
+        s=ft_strdup(path);
+        len=ft_strlen(ft_itoa(i));
+        while(++j<5-len)
+            s=ft_strjoin(s, "0");
+        s=ft_strjoin(s,ft_itoa(i));
+        s=ft_strjoin(s,".xpm");
+        (data()->loadscreen[i]) = mlx_xpm_file_to_image((data()->mlx), s, &a, &a);
+        printf("storing image nr: %i\n", i);
+        mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[i], 0, 0);
+        printf("putting image nr: %i\n", i);
+        ft_usleep(data()->sleep);
+        free(s);
+    }
+}
+
 void render_intro(char *path, int frames, int flag)
 {
     int	a;
@@ -70,7 +100,8 @@ void render_intro(char *path, int frames, int flag)
         (data()->loadscreen[i]) = mlx_xpm_file_to_image((data()->mlx), s, &a, &a);
         printf("storing image nr: %i\n", i);
         mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[i], 0, 0);
-        ft_usleep(66);
+        printf("putting image nr: %i\n", i);
+        ft_usleep(data()->sleep);
         free(s);
     }
     i=-1;
@@ -110,5 +141,27 @@ void    render_menu(void)
 
 void    render_player_sel(void)
 {
+    int i;
+    int a;
+    char *s;
     
+    if(data()->flag==1)
+    {
+        render_intro("img/player sel intro/player_sel_", 24, 0);
+        if(data()->loadscreen)
+            free(data()->loadscreen);
+        data()->loadscreen = malloc(3 * sizeof(void *));
+	    if (!data()->loadscreen)
+		    return ;
+        i=-1;
+        while (++i<3)
+        {
+            s="img/player sel intro/player_sel_";
+            s=ft_strjoin(s,ft_itoa(i));
+            s=ft_strjoin(s,".xpm");
+            data()->loadscreen[i]=  mlx_xpm_file_to_image((data()->mlx), s, &a, &a);
+        }
+        data()->flag=0;
+    }
+    mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[data()->flag_menu], 0, 0);
 }

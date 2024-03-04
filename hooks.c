@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/02/29 19:08:16 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/04 11:27:40 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,16 @@ int	key_hook(int keycode, t_data *data)
 
 int	megahook(int keycode)
 {
+	int i;
+	int a;
+	char *s;
+	
+	if(keycode==65288)
+		if(data()->state>1)
+		{
+			data()->state--;
+			data()->flag=1;
+		}
 	if(data()->state==1)
 		(data()->state)=2;
 	else if(data()->state==2)
@@ -92,8 +102,10 @@ int	megahook(int keycode)
 			if(data()->flag_menu==1)
 			{
 				printf("play!\n");
-				data()->state=4;//CHANGE THIS TO 3, just want to test maps for now
+				data()->state=3;
+				data()->flag=1;
 				data()->flag_menu=0;
+				data()->sleep=30;
 			}
 			else
 				closewin();
@@ -104,15 +116,35 @@ int	megahook(int keycode)
 		if(keycode=='d' || keycode== 65363)
 		{
 			if(data()->flag_menu<2)
+			{
+				if(data()->flag_menu==0)
+					render_intro("img/shinji-rei/shinji-rei_", 7, 0);
+				else if(data()->flag_menu==1)
+					render_intro("img/rei-asuka/rei-asuka_", 7, 0);
         		data()->flag_menu++;
+			}
 		}
 		if(keycode=='a' || keycode== 65361)
 		{
 			if(data()->flag_menu>0)
+			{
+				if(data()->flag_menu==1)
+					evil_render_intro("img/shinji-rei/shinji-rei_", 7);
+				else if(data()->flag_menu==2)
+					evil_render_intro("img/rei-asuka/rei-asuka_", 7);
         		data()->flag_menu--;
+			}
 		}
-		//transition animation in video?
+		i=-1;
+		while (++i<3)
+        {
+            s="img/player sel intro/player_sel_";
+            s=ft_strjoin(s,ft_itoa(i));
+            s=ft_strjoin(s,".xpm");
+            data()->loadscreen[i]=  mlx_xpm_file_to_image((data()->mlx), s, &a, &a);
+        }
 		mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[data()->flag_menu], 0, 0);
+		printf("this is image %i\n", data()->flag_menu);
 		if(keycode==65293 || keycode==32)
 		{
 			data()->state=4;

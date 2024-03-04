@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/29 19:07:36 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/04 11:26:58 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_data
 	int			flag_menu;
 	int			lvl;
 	int			player;
+	int			sleep;
 }				t_data;
 
 t_mapdata		*mapdata(void);
@@ -73,5 +74,6 @@ int				chkvalidmap(void);
 int				change_menu(int keycode, t_data *data);
 void			render_player_sel(void);
 int				levels(void);
+void			evil_render_intro(char *path, int frames);
 
 #endif

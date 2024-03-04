@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:57:03 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/29 18:32:49 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/04 11:27:19 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)//keep argc and argv for secret commands?
 	(data()->win) = mlx_new_window((data()->mlx), 1280, 960, "So_long, and it all comes tumbling down");
 	data()->state=0;
 	data()->flag=1;
+	data()->sleep=66;
 	render_intro("img/intro/so_long_intro_", 63, 0);
 	data()->i=-1;
 	data()->flag_menu=1;
