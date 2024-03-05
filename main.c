@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:57:03 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/04 11:27:19 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/04 17:04:45 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int	main(int argc, char **argv)//keep argc and argv for secret commands?
 	data()->state=0;
 	data()->flag=1;
 	data()->sleep=66;
+	data()->ldscrn_len=0;
 	render_intro("img/intro/so_long_intro_", 63, 0);
 	data()->i=-1;
-	data()->flag_menu=1;
+	data()->flag_menu=0;
 	data()->state=1;
 	data()->lvl=0;
 	mlx_loop_hook(data()->mlx, choose, data());

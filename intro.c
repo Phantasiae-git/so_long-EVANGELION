@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:11:34 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/04 11:27:52 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:42:23 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void evil_render_intro(char *path, int frames)
     int len;
     int j;
 
+    end_loadscreen();
 	data()->loadscreen = malloc(frames * sizeof(void *));
 	if (!data()->loadscreen)
 		return ;
@@ -69,6 +70,7 @@ void evil_render_intro(char *path, int frames)
         s=ft_strjoin(s,".xpm");
         (data()->loadscreen[i]) = mlx_xpm_file_to_image((data()->mlx), s, &a, &a);
         printf("storing image nr: %i\n", i);
+        data()->ldscrn_len++;
         mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[i], 0, 0);
         printf("putting image nr: %i\n", i);
         ft_usleep(data()->sleep);
@@ -84,6 +86,7 @@ void render_intro(char *path, int frames, int flag)
     int len;
     int j;
 
+    end_loadscreen();
 	data()->loadscreen = malloc(frames * sizeof(void *));
 	if (!data()->loadscreen)
 		return ;
@@ -98,20 +101,15 @@ void render_intro(char *path, int frames, int flag)
         s=ft_strjoin(s,ft_itoa(i));
         s=ft_strjoin(s,".xpm");
         (data()->loadscreen[i]) = mlx_xpm_file_to_image((data()->mlx), s, &a, &a);
-        printf("storing image nr: %i\n", i);
+        printf("storing image nr: %i\n------------------\n", i);
+        data()->ldscrn_len++;
         mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[i], 0, 0);
-        printf("putting image nr: %i\n", i);
+        printf("putting image nr: %i\n------------------\n", i);
         ft_usleep(data()->sleep);
         free(s);
     }
     i=-1;
-    if(flag==0)
-    {
-        /*data()->frames=frames;
-        while (++i<frames)
-            check(data());*/
-    }
-    else
+    if(flag==1)
     {
         data()->frames=14;
         check2(data());
@@ -126,8 +124,7 @@ void    render_menu(void)
     {
         render_intro("img/menu/menu_start/menu_start_", 25, 0);
         data()->flag=0;
-        if(data()->loadscreen)
-            free(data()->loadscreen);
+        end_loadscreen();
         data()->loadscreen = malloc(2 * sizeof(void *));
 	    if (!data()->loadscreen)
 		    return ;
@@ -148,8 +145,7 @@ void    render_player_sel(void)
     if(data()->flag==1)
     {
         render_intro("img/player sel intro/player_sel_", 24, 0);
-        if(data()->loadscreen)
-            free(data()->loadscreen);
+        end_loadscreen();
         data()->loadscreen = malloc(3 * sizeof(void *));
 	    if (!data()->loadscreen)
 		    return ;

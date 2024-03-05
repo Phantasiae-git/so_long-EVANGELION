@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/04 11:26:58 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:33:35 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_data
 	int			lvl;
 	int			player;
 	int			sleep;
+	int			ldscrn_len;
 }				t_data;
 
 t_mapdata		*mapdata(void);
@@ -57,7 +58,7 @@ t_data			*data(void);
 void			flood_fill(char **map, int i, int j);
 char	        *ft_itoa(int n);
 char	        *ft_strdup(const char *str);
-char	        *ft_strjoin(char const *s1, char const *s2);
+char	        *ft_strjoin(char *s1, char *s2);
 size_t          ft_strlen(const char *str);
 void	        render(int i);
 void            render_intro(char *path, int frames, int flag);
@@ -75,5 +76,6 @@ int				change_menu(int keycode, t_data *data);
 void			render_player_sel(void);
 int				levels(void);
 void			evil_render_intro(char *path, int frames);
+void			end_loadscreen(void);
 
 #endif

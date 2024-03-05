@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:01:27 by phanta            #+#    #+#             */
-/*   Updated: 2024/02/29 18:11:24 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:34:22 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_strdup(const char *str)
 	return (ptr);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*newstr;
 	size_t	len1;
@@ -101,19 +101,27 @@ int	closewin(void)
 		mlx_destroy_image(data()->mlx, data()->image[4]);
 		free(data()->image);	
 	}
-	if(data()->loadscreen)
-	{
-		i=-1;
-		while(++i<(data()->frames))
-			mlx_destroy_image(data()->mlx, data()->loadscreen[i]);
-		free(data()->loadscreen);	
-	}
+	end_loadscreen();
 	freearr();
 	mlx_destroy_window(data()->mlx, data()->win);
 	mlx_destroy_display(data()->mlx);
 	free(data()->mlx);
 	exit(0);
 	return (0);
+}
+
+void	end_loadscreen(void)
+{
+	int i;
+
+	i=-1;
+	if(data()->loadscreen)
+	{
+		while(++i<(data()->ldscrn_len))
+			mlx_destroy_image(data()->mlx, data()->loadscreen[i]);
+		free(data()->loadscreen);
+	}
+	data()->ldscrn_len=0;
 }
 
 void	freearr(void)

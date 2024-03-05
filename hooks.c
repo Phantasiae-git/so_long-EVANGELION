@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/04 11:27:40 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/05 10:16:50 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ int	megahook(int keycode)
 		{
 			data()->state--;
 			data()->flag=1;
+			data()->lvl=0;
+			data()->flag_menu=0;
+			printf("STATE CHANGE (%i)\n KEYCODE= %i\n", (data()->state), keycode);
+			return(0);
 		}
 	if(data()->state==1)
 		(data()->state)=2;
@@ -90,16 +94,16 @@ int	megahook(int keycode)
 		if(keycode=='s' || keycode== 65364)
 		{
 			mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[1], 0, 0);
-        	data()->flag_menu=0;
+        	data()->flag_menu=1;
 		}
 		if(keycode=='w' || keycode== 65362)
 		{
 			mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[0], 0, 0);
-        	data()->flag_menu=1;
+        	data()->flag_menu=0;
 		}
 		if(keycode==65293 || keycode==32)//spacebar + enter
 		{
-			if(data()->flag_menu==1)
+			if(data()->flag_menu==0)
 			{
 				printf("play!\n");
 				data()->state=3;
@@ -136,15 +140,19 @@ int	megahook(int keycode)
 			}
 		}
 		i=-1;
+		end_loadscreen();
+		data()->loadscreen = malloc(3 * sizeof(void *));
+		if (!data()->loadscreen)
+			return(1);
 		while (++i<3)
         {
             s="img/player sel intro/player_sel_";
             s=ft_strjoin(s,ft_itoa(i));
             s=ft_strjoin(s,".xpm");
             data()->loadscreen[i]=  mlx_xpm_file_to_image((data()->mlx), s, &a, &a);
+			data()->ldscrn_len++;
         }
 		mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[data()->flag_menu], 0, 0);
-		printf("this is image %i\n", data()->flag_menu);
 		if(keycode==65293 || keycode==32)
 		{
 			data()->state=4;
