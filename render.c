@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 06:57:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/08 20:07:51 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/08 20:29:28 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,12 @@ void	render(int i, int ft)
 	} */
 	mlx_put_image_to_window(data()->mlx, data()->win, data()->image[5], 0, 0);
 	i=-1;
+	mlx_put_image_to_window(data()->mlx, data()->win, data()->image[2], mapdata()->playerx, mapdata()->playery);
 	while (++i < mapdata()->height)
 	{
 		j = -1;
 		while (++j < mapdata()->length)
 		{
-			if (mapdata()->map[i][j] == 'P')
-			{
-				mlx_put_image_to_window(data()->mlx, data()->win, \
-						data()->image[0], j * 64, i * 64);
-				mlx_put_image_to_window(data()->mlx, data()->win, \
-						data()->image[2], j * 64, i * 64);
-			}
 			if (mapdata()->map[i][j] == 'E')
 				mlx_put_image_to_window(data()->mlx, data()->win, \
 						data()->image[3], j * 64, i * 64);

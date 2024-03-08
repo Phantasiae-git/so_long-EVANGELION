@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/08 20:08:21 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/08 21:39:03 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+# define SPEED 5
+
 typedef struct s_mapdata
 {
 	char		**map;
@@ -30,6 +32,8 @@ typedef struct s_mapdata
 	int			collectibles;
 	int			playerx;
 	int			playery;
+	int			yval;
+	int			xval;
 }				t_mapdata;
 
 typedef struct s_data

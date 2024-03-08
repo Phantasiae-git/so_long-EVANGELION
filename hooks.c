@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/08 20:09:27 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/08 21:35:44 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,64 @@
 
 void	move2(int keycode)
 {
-	mapdata()->map[mapdata()->playery][mapdata()->playerx] = '0';
+	mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] = '0';
 	if (keycode == 'w')
-		(mapdata()->playery)--;
+		(mapdata()->playery)=(mapdata()->playery)-SPEED;
 	if (keycode == 's')
-		(mapdata()->playery)++;
+		(mapdata()->playery)=(mapdata()->playery)+SPEED;
 	if (keycode == 'a')
-		(mapdata()->playerx)--;
+		(mapdata()->playerx)=(mapdata()->playerx)-SPEED;
 	if (keycode == 'd')
-		(mapdata()->playerx)++;
-	if (mapdata()->map[mapdata()->playery][mapdata()->playerx] == 'C')
+		(mapdata()->playerx)=(mapdata()->playerx)+SPEED;
+	if (mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] == 'C')
 		(mapdata()->collectibles)--;
-	if (mapdata()->map[mapdata()->playery][mapdata()->playerx] == 'E'
+	if (mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] == 'E'
 		&& write(1, "u win\n", 6))
 		closewin();
-	mapdata()->map[mapdata()->playery][mapdata()->playerx] = 'P';
+	mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx/64)] = 'P';
 	render(-1, 0);
 	(data()->moves)++;
 }
 
 void	move(int keycode)
 {
-	if (keycode == 'w' && (mapdata()->map[mapdata()->playery - 1] \
-			[mapdata()->playerx] == '1' \
-			|| (mapdata()->map[mapdata()->playery \
-				- 1][mapdata()->playerx] == 'E' && mapdata()->collectibles)))
+	if (keycode == 'w' && (mapdata()->map[(mapdata()->playery - SPEED)/64] \
+			[(mapdata()->playerx)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery - SPEED)/64][(mapdata()->playerx)/64] == 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 's' && (mapdata()->map[mapdata()->playery + 1] \
-			[mapdata()->playerx] == '1' \
-			|| (mapdata()->map[mapdata()->playery + 1] \
-			[mapdata()->playerx] == 'E' && mapdata()->collectibles)))
+	if (keycode == 'w' && (mapdata()->map[(mapdata()->playery - SPEED)/64] \
+			[((mapdata()->playerx)+60)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery - SPEED)/64][((mapdata()->playerx)+60)/64] == 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 'a' && (mapdata()->map[mapdata()->playery] \
-			[mapdata()->playerx - 1] == '1'
-			|| (mapdata()->map[mapdata()->playery][mapdata()->playerx - 1] \
+	if (keycode == 's' && (mapdata()->map[(mapdata()->playery + SPEED+60)/64] \
+			[(mapdata()->playerx)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery + SPEED+60)/64] \
+			[(mapdata()->playerx)/64] == 'E' && mapdata()->collectibles)))
+		return ;
+	if (keycode == 's' && (mapdata()->map[(mapdata()->playery + SPEED+60)/64] \
+			[(mapdata()->playerx+60)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery + SPEED+60)/64] \
+			[(mapdata()->playerx+60)/64] == 'E' && mapdata()->collectibles)))
+		return ;
+	if (keycode == 'a' && (mapdata()->map[(mapdata()->playery)/64] \
+			[(mapdata()->playerx - SPEED)/64] == '1'
+			|| (mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx - SPEED)/64] \
 			== 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 'd' && (mapdata()->map[mapdata()->playery] \
-			[mapdata()->playerx + 1] == '1' || \
-			(mapdata()->map[mapdata()->playery] \
-			[mapdata()->playerx + 1] == 'E' && mapdata()->collectibles)))
+	if (keycode == 'a' && (mapdata()->map[(mapdata()->playery+60)/64] \
+			[(mapdata()->playerx - SPEED)/64] == '1'
+			|| (mapdata()->map[(mapdata()->playery+60)/64][(mapdata()->playerx - SPEED)/64] \
+			== 'E' && mapdata()->collectibles)))
+		return ;
+	if (keycode == 'd' && (mapdata()->map[(mapdata()->playery)/64] \
+			[(mapdata()->playerx + SPEED+60)/64] == '1' || \
+			(mapdata()->map[(mapdata()->playery)/64] \
+			[(mapdata()->playerx + SPEED+60)/64] == 'E' && mapdata()->collectibles)))
+		return ;
+	if (keycode == 'd' && (mapdata()->map[(mapdata()->playery+60)/64] \
+			[(mapdata()->playerx + SPEED+60)/64] == '1' || \
+			(mapdata()->map[(mapdata()->playery+60)/64] \
+			[(mapdata()->playerx + SPEED+60)/64] == 'E' && mapdata()->collectibles)))
 		return ;
 	move2(keycode);
 }
