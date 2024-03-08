@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/04 16:33:35 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/08 20:08:21 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	        *ft_itoa(int n);
 char	        *ft_strdup(const char *str);
 char	        *ft_strjoin(char *s1, char *s2);
 size_t          ft_strlen(const char *str);
-void	        render(int i);
+void	        render(int i, int ft);
 void            render_intro(char *path, int frames, int flag);
 int             key_hook(int keycode, t_data *data);
 int	            closewin(void);

@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/05 10:16:50 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/08 20:09:27 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	move2(int keycode)
 {
 	mapdata()->map[mapdata()->playery][mapdata()->playerx] = '0';
-	mlx_put_image_to_window(data()->mlx, data()->win, data()->image[0], \
-			(mapdata()->playerx) * 64, (mapdata()->playery) * 64);
 	if (keycode == 'w')
 		(mapdata()->playery)--;
 	if (keycode == 's')
@@ -31,8 +29,7 @@ void	move2(int keycode)
 		&& write(1, "u win\n", 6))
 		closewin();
 	mapdata()->map[mapdata()->playery][mapdata()->playerx] = 'P';
-	mlx_put_image_to_window(data()->mlx, data()->win, data()->image[2], \
-			(mapdata()->playerx) * 64, (mapdata()->playery) * 64);
+	render(-1, 0);
 	(data()->moves)++;
 }
 

@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 00:30:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/02/29 19:08:05 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/06 17:50:13 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,14 +135,24 @@ int	chkvalidmap(void)
 		while (++j < mapdata()->length)
 		{
 			if (!aaaaaa(i, j, &player, &exit))
+			{
+				printf("c\n");
 				return (0);
+				
+			}
 		}
 	}
 	if (mapdata()->collectibles < 1 || player != 1 || exit != 1)
+	{
+		printf("a\n");
 		return (0);
+	}
 	mapdata()->tmp = maptmp(mapdata()->map);
 	flood_fill(mapdata()->tmp, mapdata()->playery, mapdata()->playerx);
 	if (!flood_fill2())
-		return (0);
+	{
+		printf("b\n");
+		return(0);
+	}
 	return (1);
 }

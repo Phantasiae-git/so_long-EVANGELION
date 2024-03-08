@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:28:33 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/04 16:12:09 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/08 20:08:30 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int levels(void)
 		return (0);
 	if (!chkvalidmap())
 		return (0);
-	render(-1);
+	render(-1, 1);
 }
