@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/08 21:39:03 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/11 18:29:54 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define SPEED 5
+# define SPEED 1
 
 typedef struct s_mapdata
 {

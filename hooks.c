@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/08 21:35:44 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/09 16:52:03 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,5 @@ int	megahook(int keycode)
 	}
 	else if(data()->state==4)
 		key_hook(keycode, data());
-	printf("STATE CHANGE (%i)\n KEYCODE= %i\n", (data()->state), keycode);
+	//printf("STATE CHANGE (%i)\n KEYCODE= %i\n", (data()->state), keycode);
 }

@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:11:34 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/04 16:42:23 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/09 16:52:58 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int     check(t_data *data)
         i=-1;
     mlx_put_image_to_window(data->mlx, data->win, data->loadscreen[++i], 0, 0);
     ft_usleep(66);
-    printf("intro frame: %i\n", i);
+   //printf("intro frame: %i\n", i);
 }
 
 int     check2(t_data *data)
@@ -28,7 +28,7 @@ int     check2(t_data *data)
         (data->i)=-1;
     mlx_put_image_to_window(data->mlx, data->win, data->loadscreen[++(data->i)], 0, 0);
     ft_usleep(10);
-    printf("loop intro frame: %i\n", (data->i));
+    //printf("loop intro frame: %i\n", (data->i));
 }
 
 int     change_menu(int keycode, t_data *data)
@@ -69,10 +69,10 @@ void evil_render_intro(char *path, int frames)
         s=ft_strjoin(s,ft_itoa(i));
         s=ft_strjoin(s,".xpm");
         (data()->loadscreen[i]) = mlx_xpm_file_to_image((data()->mlx), s, &a, &a);
-        printf("storing image nr: %i\n", i);
+        //printf("storing image nr: %i\n", i);
         data()->ldscrn_len++;
         mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[i], 0, 0);
-        printf("putting image nr: %i\n", i);
+        //printf("putting image nr: %i\n", i);
         ft_usleep(data()->sleep);
         free(s);
     }
@@ -101,10 +101,10 @@ void render_intro(char *path, int frames, int flag)
         s=ft_strjoin(s,ft_itoa(i));
         s=ft_strjoin(s,".xpm");
         (data()->loadscreen[i]) = mlx_xpm_file_to_image((data()->mlx), s, &a, &a);
-        printf("storing image nr: %i\n------------------\n", i);
+        //printf("storing image nr: %i\n------------------\n", i);
         data()->ldscrn_len++;
         mlx_put_image_to_window(data()->mlx, data()->win, data()->loadscreen[i], 0, 0);
-        printf("putting image nr: %i\n------------------\n", i);
+        //printf("putting image nr: %i\n------------------\n", i);
         ft_usleep(data()->sleep);
         free(s);
     }
