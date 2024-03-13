@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/11 18:29:54 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/13 00:38:02 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define SPEED 1
+# define SPEED 4
 
 typedef struct s_mapdata
 {
@@ -35,6 +35,17 @@ typedef struct s_mapdata
 	int			yval;
 	int			xval;
 }				t_mapdata;
+
+typedef struct s_img
+{
+	void	*img;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		sizeline;
+	int		endian;
+	char	*addr;
+}				t_img;
 
 typedef struct s_data
 {
@@ -58,6 +69,7 @@ typedef struct s_data
 
 t_mapdata		*mapdata(void);
 t_data			*data(void);
+t_img			*img(void);
 
 void			flood_fill(char **map, int i, int j);
 char	        *ft_itoa(int n);

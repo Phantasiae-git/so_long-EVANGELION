@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/09 16:52:03 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/13 23:13:19 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	move2(int keycode)
 {
-	mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] = '0';
+	//mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] = '0';
 	if (keycode == 'w')
 		(mapdata()->playery)=(mapdata()->playery)-SPEED;
 	if (keycode == 's')
@@ -24,54 +24,57 @@ void	move2(int keycode)
 	if (keycode == 'd')
 		(mapdata()->playerx)=(mapdata()->playerx)+SPEED;
 	if (mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] == 'C')
+	{
 		(mapdata()->collectibles)--;
-	if (mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] == 'E'
+		mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] = '0';
+	}
+	if (mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] == 'E' && !mapdata()->collectibles
 		&& write(1, "u win\n", 6))
 		closewin();
-	mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx/64)] = 'P';
+	//mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx/64)] = 'P';
 	render(-1, 0);
 	(data()->moves)++;
 }
 
 void	move(int keycode)
 {
-	if (keycode == 'w' && (mapdata()->map[(mapdata()->playery - SPEED)/64] \
-			[(mapdata()->playerx)/64] == '1' \
-			|| (mapdata()->map[(mapdata()->playery - SPEED)/64][(mapdata()->playerx)/64] == 'E' && mapdata()->collectibles)))
+	if (keycode == 'w' && (mapdata()->map[(mapdata()->playery - SPEED+10)/64] \
+			[(mapdata()->playerx+10)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery - SPEED+10)/64][(mapdata()->playerx+10)/64] == 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 'w' && (mapdata()->map[(mapdata()->playery - SPEED)/64] \
-			[((mapdata()->playerx)+60)/64] == '1' \
-			|| (mapdata()->map[(mapdata()->playery - SPEED)/64][((mapdata()->playerx)+60)/64] == 'E' && mapdata()->collectibles)))
+	if (keycode == 'w' && (mapdata()->map[(mapdata()->playery - SPEED+10)/64] \
+			[((mapdata()->playerx)+54)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery - SPEED+10)/64][((mapdata()->playerx)+54)/64] == 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 's' && (mapdata()->map[(mapdata()->playery + SPEED+60)/64] \
-			[(mapdata()->playerx)/64] == '1' \
-			|| (mapdata()->map[(mapdata()->playery + SPEED+60)/64] \
-			[(mapdata()->playerx)/64] == 'E' && mapdata()->collectibles)))
+	if (keycode == 's' && (mapdata()->map[(mapdata()->playery + SPEED+54)/64] \
+			[(mapdata()->playerx+10)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery + SPEED+54)/64] \
+			[(mapdata()->playerx+10)/64] == 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 's' && (mapdata()->map[(mapdata()->playery + SPEED+60)/64] \
-			[(mapdata()->playerx+60)/64] == '1' \
-			|| (mapdata()->map[(mapdata()->playery + SPEED+60)/64] \
-			[(mapdata()->playerx+60)/64] == 'E' && mapdata()->collectibles)))
+	if (keycode == 's' && (mapdata()->map[(mapdata()->playery + SPEED+54)/64] \
+			[(mapdata()->playerx+54)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery + SPEED+54)/64] \
+			[(mapdata()->playerx+54)/64] == 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 'a' && (mapdata()->map[(mapdata()->playery)/64] \
-			[(mapdata()->playerx - SPEED)/64] == '1'
-			|| (mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx - SPEED)/64] \
+	if (keycode == 'a' && (mapdata()->map[(mapdata()->playery+10)/64] \
+			[(mapdata()->playerx - SPEED+10)/64] == '1'
+			|| (mapdata()->map[(mapdata()->playery+10)/64][(mapdata()->playerx - SPEED+10)/64] \
 			== 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 'a' && (mapdata()->map[(mapdata()->playery+60)/64] \
-			[(mapdata()->playerx - SPEED)/64] == '1'
-			|| (mapdata()->map[(mapdata()->playery+60)/64][(mapdata()->playerx - SPEED)/64] \
+	if (keycode == 'a' && (mapdata()->map[(mapdata()->playery+54)/64] \
+			[(mapdata()->playerx - SPEED+10)/64] == '1'
+			|| (mapdata()->map[(mapdata()->playery+54)/64][(mapdata()->playerx - SPEED+10)/64] \
 			== 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 'd' && (mapdata()->map[(mapdata()->playery)/64] \
-			[(mapdata()->playerx + SPEED+60)/64] == '1' || \
-			(mapdata()->map[(mapdata()->playery)/64] \
-			[(mapdata()->playerx + SPEED+60)/64] == 'E' && mapdata()->collectibles)))
+	if (keycode == 'd' && (mapdata()->map[(mapdata()->playery+10)/64] \
+			[(mapdata()->playerx + SPEED+54)/64] == '1' || \
+			(mapdata()->map[(mapdata()->playery+10)/64] \
+			[(mapdata()->playerx + SPEED+54)/64] == 'E' && mapdata()->collectibles)))
 		return ;
-	if (keycode == 'd' && (mapdata()->map[(mapdata()->playery+60)/64] \
-			[(mapdata()->playerx + SPEED+60)/64] == '1' || \
-			(mapdata()->map[(mapdata()->playery+60)/64] \
-			[(mapdata()->playerx + SPEED+60)/64] == 'E' && mapdata()->collectibles)))
+	if (keycode == 'd' && (mapdata()->map[(mapdata()->playery+54)/64] \
+			[(mapdata()->playerx + SPEED+54)/64] == '1' || \
+			(mapdata()->map[(mapdata()->playery+54)/64] \
+			[(mapdata()->playerx + SPEED+54)/64] == 'E' && mapdata()->collectibles)))
 		return ;
 	move2(keycode);
 }
@@ -176,5 +179,5 @@ int	megahook(int keycode)
 	}
 	else if(data()->state==4)
 		key_hook(keycode, data());
-	//printf("STATE CHANGE (%i)\n KEYCODE= %i\n", (data()->state), keycode);
+	printf("STATE CHANGE (%i)\n KEYCODE= %i\n", (data()->state), keycode);
 }
