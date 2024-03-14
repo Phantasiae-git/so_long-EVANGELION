@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:01:27 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/14 01:30:29 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 18:07:42 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	closewin(void)
 		mlx_destroy_image(data()->mlx, data()->image[1]);
 		mlx_destroy_image(data()->mlx, data()->image[2]);
 		mlx_destroy_image(data()->mlx, data()->image[3]);
-		mlx_destroy_image(data()->mlx, data()->image[4]);
+		mlx_destroy_image(data()->mlx, data()->image[5]);
 		free(data()->image);	
 	}
 	if(data()->col)

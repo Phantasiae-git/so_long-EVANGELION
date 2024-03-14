@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 00:30:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/08 20:18:50 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 17:38:19 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	aaaaaa(int i, int j, int *player, int *exit)
 	}
 	else if (mapdata()->map[i][j] != '0' && mapdata()->map[i][j] != '1'
 			&& mapdata()->map[i][j] != 'P' && mapdata()->map[i][j] != 'E'
-			&& mapdata()->map[i][j] != 'C')
+			&& mapdata()->map[i][j] != 'C'&& mapdata()->map[i][j] != 'X')
 		return (0);
 	if (mapdata()->map[i][j] == 'C')
 		mapdata()->collectibles++;
@@ -112,6 +112,12 @@ int	aaaaaa(int i, int j, int *player, int *exit)
 		mapdata()->playery = i*64;
 		mapdata()->playerx = j*64;
 		(*player)++;
+	}
+	if (mapdata()->map[i][j] == 'X')
+	{
+		data()->yenemy = i*64;
+		data()->xenemy = j*64;
+		printf("enemy detected at %i, %i\n",data()->xenemy, data()->yenemy);
 	}
 	if (mapdata()->map[i][j] == 'E')
 		(*exit)++;

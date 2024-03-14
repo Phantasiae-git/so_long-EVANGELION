@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/14 04:54:21 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 17:17:12 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ typedef struct s_data
 	int			newgame;
 	int			xmove;
 	int			ymove;
+	int			xenemy;
+	int			yenemy;
+	t_img		*enemy;
 }				t_data;
 
 t_mapdata		*mapdata(void);

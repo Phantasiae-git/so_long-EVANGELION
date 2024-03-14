@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/14 06:11:50 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 15:36:06 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,17 @@ void	movenew(int keycode)
 		data()->ymove++;
 	if(keycode== 'd' || keycode ==65363)
 		data()->xmove++;
-	printf("move x=%i, move y=%i\n", mapdata()->playerx+data()->xmove,mapdata()->playery+data()->ymove);
+	printf("move x=%i, move y=%i, collec=%i\n", mapdata()->playerx+data()->xmove,mapdata()->playery+data()->ymove, mapdata()->collectibles);
 	if(mapdata()->map[(mapdata()->playery+data()->ymove+10)/64] \
 			[(mapdata()->playerx+data()->xmove+10)/64] == '1' \
 			|| (mapdata()->map[(mapdata()->playery+data()->ymove+10)/64][(mapdata()->playerx+data()->xmove+10)/64] == 'E' && mapdata()->collectibles))
 	{
-		data()->xmove=0;
-		data()->ymove=0;
 		return;
 	}
 	if(mapdata()->map[(mapdata()->playery+data()->ymove+10)/64] \
 			[((mapdata()->playerx)+data()->xmove+54)/64] == '1' \
 			|| (mapdata()->map[(mapdata()->playery+data()->ymove+10)/64][((mapdata()->playerx)+data()->xmove+54)/64] == 'E' && mapdata()->collectibles))
 	{
-		data()->xmove=0;
-		data()->ymove=0;
 		return;
 	}	
 	if(mapdata()->map[(mapdata()->playery +data()->ymove+54)/64] \
@@ -77,8 +73,6 @@ void	movenew(int keycode)
 			|| (mapdata()->map[(mapdata()->playery +data()->ymove+54)/64] \
 			[(mapdata()->playerx+data()->xmove+10)/64] == 'E' && mapdata()->collectibles))
 	{
-		data()->xmove=0;
-		data()->ymove=0;
 		return;
 	}
 	if(mapdata()->map[(mapdata()->playery +data()->ymove+54)/64] \
@@ -86,10 +80,24 @@ void	movenew(int keycode)
 			|| (mapdata()->map[(mapdata()->playery +data()->ymove+54)/64] \
 			[(mapdata()->playerx+data()->xmove+54)/64] == 'E' && mapdata()->collectibles))
 	{
-		data()->xmove=0;
-		data()->ymove=0;
 		return;
 	}
+	if (mapdata()->map[(mapdata()->playery+10)/64][(mapdata()->playerx+10)/64] == 'C')
+	{
+		(mapdata()->collectibles)--;
+		mapdata()->map[(mapdata()->playery+10)/64][(mapdata()->playerx+10)/64] = '0';
+	}
+	if (mapdata()->map[(mapdata()->playery+10)/64][(mapdata()->playerx+10)/64] == 'E' && !mapdata()->collectibles
+		&& write(1, "u win\n", 6))
+	{
+		data()->newgame=1;
+		closewin();
+	}
+	if(data()->coln<2)
+		data()->coln++;
+	else
+		data()->coln=0;
+	(data()->moves)++;
 }
 int	reset(int keycode)
 {

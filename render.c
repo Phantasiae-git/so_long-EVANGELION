@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 06:57:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/14 06:06:30 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 18:11:27 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,25 @@ void	images(void)
 	char *s2;
 	char *s3;
 
-	data()->image = malloc(6 * sizeof(void *));
+	data()->image = malloc(7 * sizeof(void *));
 	if (!data()->image)
 		return ;
 	s1=ft_strjoin("img/lvl", ft_itoa(data()->lvl));
 	s2=ft_strjoin(s1, "/floor.xpm");
 	(data()->image[0]) = mlx_xpm_file_to_image((data()->mlx), s2,
 			&a, &a);
-	s2=ft_strjoin(s1, "/wall.xpm");
-	(data()->image[1]) = mlx_xpm_file_to_image(data()->mlx, s2, &a, \
-												&a);
+	s2=ft_strjoin(s1, "/enemy.xpm");
+	data()->enemy=malloc(sizeof(t_img));
+	(data()->image[1]) = mlx_xpm_file_to_image(data()->mlx, s2, &(data()->enemy->width), \
+												&(data()->enemy->height));
+	data()->enemy->img=data()->image[1];
+	data()->enemy->addr = mlx_get_data_addr(data()->enemy->img, &(data()->enemy->bits_per_pixel), &(data()->enemy->sizeline), &(data()->enemy->endian));
 	s2=ft_strjoin(s1, "/exit.xpm");
 	(data()->image[3]) = mlx_xpm_file_to_image(data()->mlx, s2, &a, \
 												&a);
-	s2=ft_strjoin(s1, "/collectible.xpm");
-	(data()->image[4]) = mlx_xpm_file_to_image(data()->mlx, \
-			s2, &a, &a);
 	s2=ft_strjoin(s1, "/BG.xpm");
 	(data()->image[5]) = mlx_xpm_file_to_image(data()->mlx, s2,
 			&a, &a);
-	/*(data()->image[5]) = mlx_xpm_file_to_image(data()->mlx, \
-			"img/enemy.xpm", &a, &a);*/
 	s1=ft_strjoin("img/player/", ft_itoa(data()->player));
 	s1=ft_strjoin(s1,".xpm");
 	(data()->image[2]) = mlx_xpm_file_to_image(data()->mlx, s1,
@@ -74,13 +72,8 @@ void	put_img_pbp(t_img *image, int x, int y)
 	int i;
 	int j;
 	unsigned int color;
-	//t_img	*holder;
 
 	i=-1;
-	
-/* 	holder = malloc(sizeof(t_img));
-	holder->img=mlx_new_image(data()->mlx, 64, 64);
-	holder->addr = mlx_get_data_addr(holder->img, &(holder->bits_per_pixel), &(holder->sizeline), &(holder->endian)); */
 	while(++i<image->height)//64
 	{
 		j=-1;
@@ -110,16 +103,16 @@ void	render(int i, int ft)
 			[(mapdata()->playerx+10)/64] == '1' \
 			|| (mapdata()->map[(mapdata()->playery+10)/64][(mapdata()->playerx+10)/64] == 'E' && mapdata()->collectibles))
 	{
-		data()->xmove=0;
-		data()->ymove=0;
+		(mapdata()->playery)=(mapdata()->playery)-data()->ymove;
+		(mapdata()->playerx)=(mapdata()->playerx)-data()->xmove;
 		return;
 	}
 	if(mapdata()->map[(mapdata()->playery+10)/64] \
 			[((mapdata()->playerx)+54)/64] == '1' \
 			|| (mapdata()->map[(mapdata()->playery+10)/64][((mapdata()->playerx)+54)/64] == 'E' && mapdata()->collectibles))
 	{
-		data()->xmove=0;
-		data()->ymove=0;
+		(mapdata()->playery)=(mapdata()->playery)-data()->ymove;
+		(mapdata()->playerx)=(mapdata()->playerx)-data()->xmove;
 		return;
 	}	
 	if(mapdata()->map[(mapdata()->playery+54)/64] \
@@ -127,8 +120,8 @@ void	render(int i, int ft)
 			|| (mapdata()->map[(mapdata()->playery+54)/64] \
 			[(mapdata()->playerx+10)/64] == 'E' && mapdata()->collectibles))
 	{
-		data()->xmove=0;
-		data()->ymove=0;
+		(mapdata()->playery)=(mapdata()->playery)-data()->ymove;
+		(mapdata()->playerx)=(mapdata()->playerx)-data()->xmove;
 		return;
 	}
 	if(mapdata()->map[(mapdata()->playery +54)/64] \
@@ -136,8 +129,8 @@ void	render(int i, int ft)
 			|| (mapdata()->map[(mapdata()->playery+54)/64] \
 			[(mapdata()->playerx+54)/64] == 'E' && mapdata()->collectibles))
 	{
-		data()->xmove=0;
-		data()->ymove=0;
+		(mapdata()->playery)=(mapdata()->playery)-data()->ymove;
+		(mapdata()->playerx)=(mapdata()->playerx)-data()->xmove;
 		return;
 	}
 	mlx_put_image_to_window(data()->mlx, data()->win, data()->image[5], 0, 0);//bg
@@ -173,10 +166,12 @@ void	render(int i, int ft)
 						data()->image[3], j * 64, i * 64);
 			if (mapdata()->map[i][j] == 'C')
 				collectible(i, j);
-			/*if (mapdata()->map[i][j] == 'X')
+			if (mapdata()->map[i][j] == 'X')
 				mlx_put_image_to_window(data()->mlx, data()->win, \
-						data()->image[5], j * 64, i * 64);*/
+						data()->image[5], j * 64, i * 64);
 		}
 	}
 	put_img_pbp(img(), mapdata()->playerx, mapdata()->playery);
+	put_img_pbp(data()->enemy, data()->xenemy-64, data()->yenemy-128);
+	
 }
