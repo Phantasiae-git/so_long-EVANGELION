@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 06:57:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/14 18:11:27 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 19:07:17 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,24 @@ unsigned int	get_color(t_img *image, int x, int y)
 	return(*(unsigned int*)(image->addr + (y * image->sizeline + x * (image->bits_per_pixel / 8))));
 }
 
+void my_mlx_pixel_put(t_img *image, int x, int y, unsigned int color)
+{
+	char	*dst;
+
+	dst = image->addr + (y * image->sizeline + x * (image->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
 void	put_img_pbp(t_img *image, int x, int y)
 {
 	int i;
 	int j;
 	unsigned int color;
+	t_img *holder;
 
+	holder=malloc(sizeof(t_img));
+	holder->img=mlx_new_image(data()->mlx, image->width, image->height);
+	holder->addr = mlx_get_data_addr(holder->img, &holder->bits_per_pixel, &holder->sizeline, &holder->endian);
 	i=-1;
 	while(++i<image->height)//64
 	{
@@ -81,9 +93,12 @@ void	put_img_pbp(t_img *image, int x, int y)
 		{
 			color=get_color(image, j, i);
 			if(color!= 0xFF000000)
-				mlx_pixel_put(data()->mlx, data()->win, (x+j), (y+i), color);
+				my_mlx_pixel_put(holder, (x+j), (y+i), color);//mlx_pixel_put(data()->mlx, data()->win, (x+j), (y+i), color);
 		}
 	}
+	mlx_put_image_to_window(data()->mlx, data()->win, holder->img, x, y);
+	mlx_destroy_image(data()->mlx, holder->img);
+	free(holder);
 }
 
 void collectible(int y, int x)
@@ -166,9 +181,6 @@ void	render(int i, int ft)
 						data()->image[3], j * 64, i * 64);
 			if (mapdata()->map[i][j] == 'C')
 				collectible(i, j);
-			if (mapdata()->map[i][j] == 'X')
-				mlx_put_image_to_window(data()->mlx, data()->win, \
-						data()->image[5], j * 64, i * 64);
 		}
 	}
 	put_img_pbp(img(), mapdata()->playerx, mapdata()->playery);
