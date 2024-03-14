@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/14 05:13:37 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 06:11:50 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,10 @@ int	reset(int keycode)
 {
 	if(data()->state==4)
 	{
-		data()->xmove=0;
-		data()->ymove=0;
+		if(keycode== 'w' || keycode ==65362 || keycode== 's' || keycode ==65364)
+			data()->ymove=0;
+		if(keycode== 'a' || keycode ==65361 || keycode== 'd' || keycode ==65363)
+			data()->xmove=0;
 	}
 }
 	

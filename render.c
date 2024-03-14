@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 06:57:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/14 05:16:15 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 06:06:30 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,40 @@ void	render(int i, int ft)
 
 	if(ft)
 		images();
+		if(mapdata()->map[(mapdata()->playery+10)/64] \
+			[(mapdata()->playerx+10)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery+10)/64][(mapdata()->playerx+10)/64] == 'E' && mapdata()->collectibles))
+	{
+		data()->xmove=0;
+		data()->ymove=0;
+		return;
+	}
+	if(mapdata()->map[(mapdata()->playery+10)/64] \
+			[((mapdata()->playerx)+54)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery+10)/64][((mapdata()->playerx)+54)/64] == 'E' && mapdata()->collectibles))
+	{
+		data()->xmove=0;
+		data()->ymove=0;
+		return;
+	}	
+	if(mapdata()->map[(mapdata()->playery+54)/64] \
+			[(mapdata()->playerx+10)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery+54)/64] \
+			[(mapdata()->playerx+10)/64] == 'E' && mapdata()->collectibles))
+	{
+		data()->xmove=0;
+		data()->ymove=0;
+		return;
+	}
+	if(mapdata()->map[(mapdata()->playery +54)/64] \
+			[(mapdata()->playerx+54)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery+54)/64] \
+			[(mapdata()->playerx+54)/64] == 'E' && mapdata()->collectibles))
+	{
+		data()->xmove=0;
+		data()->ymove=0;
+		return;
+	}
 	mlx_put_image_to_window(data()->mlx, data()->win, data()->image[5], 0, 0);//bg
 /* 	while (++i < mapdata()->height)
 	{
@@ -145,5 +179,4 @@ void	render(int i, int ft)
 		}
 	}
 	put_img_pbp(img(), mapdata()->playerx, mapdata()->playery);
-	ft_usleep(10);
 }
