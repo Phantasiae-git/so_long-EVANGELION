@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 06:57:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/13 23:10:29 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 05:16:15 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	images(void)
 {
 	int	a;
+	int i;
 	char *s1;
 	char *s2;
+	char *s3;
 
 	data()->image = malloc(6 * sizeof(void *));
 	if (!data()->image)
@@ -45,36 +47,56 @@ void	images(void)
 			&(img()->width), &(img()->height));
 	img()->img=data()->image[2];
 	img()->addr = mlx_get_data_addr(img()->img, &(img()->bits_per_pixel), &(img()->sizeline), &(img()->endian));
+	data()->col = malloc(3 * sizeof(t_img *));
+	if(!data()->col)
+		return;
+	i=-1;
+	s3="img/col/Col";
+	while(++i<3)
+	{
+		data()->col[i]=malloc(sizeof(t_img));
+		s2=ft_strjoin(s3, ft_itoa(i+1));
+		s2=ft_strjoin(s2, ".xpm");
+		printf("%s\n", s2);
+		data()->col[i]->img=mlx_xpm_file_to_image(data()->mlx, s2, &(data()->col[i]->width), &(data()->col[i]->height));
+		data()->col[i]->addr = mlx_get_data_addr(data()->col[i]->img, &(data()->col[i]->bits_per_pixel), &(data()->col[i]->sizeline), &(data()->col[i]->endian));
+	}
+	data()->coln=0;
 }
 
-unsigned int	get_color(int x, int y)
+unsigned int	get_color(t_img *image, int x, int y)
 {
-	return(*(unsigned int*)(img()->addr + (y * img()->sizeline + x * (img()->bits_per_pixel / 8))));
+	return(*(unsigned int*)(image->addr + (y * image->sizeline + x * (image->bits_per_pixel / 8))));
 }
 
-void	put_player()
+void	put_img_pbp(t_img *image, int x, int y)
 {
 	int i;
 	int j;
 	unsigned int color;
-	t_img	*holder;
+	//t_img	*holder;
 
 	i=-1;
 	
 /* 	holder = malloc(sizeof(t_img));
 	holder->img=mlx_new_image(data()->mlx, 64, 64);
 	holder->addr = mlx_get_data_addr(holder->img, &(holder->bits_per_pixel), &(holder->sizeline), &(holder->endian)); */
-	while(++i<img()->height)//64
+	while(++i<image->height)//64
 	{
 		j=-1;
-		while (++j<img()->width)//64
+		while (++j<image->width)//64
 		{
-			color=get_color(j, i);
+			color=get_color(image, j, i);
 			if(color!= 0xFF000000)
-				mlx_pixel_put(data()->mlx, data()->win, (mapdata()->playerx+j), (mapdata()->playery+i), color);
+				mlx_pixel_put(data()->mlx, data()->win, (x+j), (y+i), color);
 		}
 	}
-} 
+}
+
+void collectible(int y, int x)
+{
+	put_img_pbp(data()->col[data()->coln], x*64, y*64);
+}
 
 void	render(int i, int ft)
 {
@@ -84,7 +106,6 @@ void	render(int i, int ft)
 
 	if(ft)
 		images();
-	
 	mlx_put_image_to_window(data()->mlx, data()->win, data()->image[5], 0, 0);//bg
 /* 	while (++i < mapdata()->height)
 	{
@@ -117,12 +138,12 @@ void	render(int i, int ft)
 				mlx_put_image_to_window(data()->mlx, data()->win, \
 						data()->image[3], j * 64, i * 64);
 			if (mapdata()->map[i][j] == 'C')
-				mlx_put_image_to_window(data()->mlx, data()->win, \
-						data()->image[4], j * 64, i * 64);
+				collectible(i, j);
 			/*if (mapdata()->map[i][j] == 'X')
 				mlx_put_image_to_window(data()->mlx, data()->win, \
 						data()->image[5], j * 64, i * 64);*/
 		}
 	}
-	put_player();
+	put_img_pbp(img(), mapdata()->playerx, mapdata()->playery);
+	ft_usleep(10);
 }

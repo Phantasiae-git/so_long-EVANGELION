@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:52:46 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/13 23:13:19 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 05:13:37 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,78 @@ void	move2(int keycode)
 		(mapdata()->collectibles)--;
 		mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] = '0';
 	}
-	if (mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx)/64] == 'E' && !mapdata()->collectibles
+	if (mapdata()->map[(mapdata()->playery+10)/64][(mapdata()->playerx+10)/64] == 'E' && !mapdata()->collectibles
 		&& write(1, "u win\n", 6))
+	{
+		data()->newgame=1;
 		closewin();
+	}
 	//mapdata()->map[(mapdata()->playery)/64][(mapdata()->playerx/64)] = 'P';
+	if(data()->coln<2)
+		data()->coln++;
+	else
+		data()->coln=0;
 	render(-1, 0);
 	(data()->moves)++;
 }
 
+void	movenew(int keycode)
+{
+	if (keycode == 65307)
+		closewin();
+	if(keycode== 'w' || keycode ==65362)
+		data()->ymove--;
+	if(keycode== 'a' || keycode ==65361)
+		data()->xmove--;
+	if(keycode== 's' || keycode ==65364)
+		data()->ymove++;
+	if(keycode== 'd' || keycode ==65363)
+		data()->xmove++;
+	printf("move x=%i, move y=%i\n", mapdata()->playerx+data()->xmove,mapdata()->playery+data()->ymove);
+	if(mapdata()->map[(mapdata()->playery+data()->ymove+10)/64] \
+			[(mapdata()->playerx+data()->xmove+10)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery+data()->ymove+10)/64][(mapdata()->playerx+data()->xmove+10)/64] == 'E' && mapdata()->collectibles))
+	{
+		data()->xmove=0;
+		data()->ymove=0;
+		return;
+	}
+	if(mapdata()->map[(mapdata()->playery+data()->ymove+10)/64] \
+			[((mapdata()->playerx)+data()->xmove+54)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery+data()->ymove+10)/64][((mapdata()->playerx)+data()->xmove+54)/64] == 'E' && mapdata()->collectibles))
+	{
+		data()->xmove=0;
+		data()->ymove=0;
+		return;
+	}	
+	if(mapdata()->map[(mapdata()->playery +data()->ymove+54)/64] \
+			[(mapdata()->playerx+data()->xmove+10)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery +data()->ymove+54)/64] \
+			[(mapdata()->playerx+data()->xmove+10)/64] == 'E' && mapdata()->collectibles))
+	{
+		data()->xmove=0;
+		data()->ymove=0;
+		return;
+	}
+	if(mapdata()->map[(mapdata()->playery +data()->ymove+54)/64] \
+			[(mapdata()->playerx+data()->xmove+54)/64] == '1' \
+			|| (mapdata()->map[(mapdata()->playery +data()->ymove+54)/64] \
+			[(mapdata()->playerx+data()->xmove+54)/64] == 'E' && mapdata()->collectibles))
+	{
+		data()->xmove=0;
+		data()->ymove=0;
+		return;
+	}
+}
+int	reset(int keycode)
+{
+	if(data()->state==4)
+	{
+		data()->xmove=0;
+		data()->ymove=0;
+	}
+}
+	
 void	move(int keycode)
 {
 	if (keycode == 'w' && (mapdata()->map[(mapdata()->playery - SPEED+10)/64] \
@@ -178,6 +242,6 @@ int	megahook(int keycode)
 		}
 	}
 	else if(data()->state==4)
-		key_hook(keycode, data());
+		movenew(keycode);
 	printf("STATE CHANGE (%i)\n KEYCODE= %i\n", (data()->state), keycode);
 }

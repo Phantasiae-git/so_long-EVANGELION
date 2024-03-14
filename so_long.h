@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/13 00:38:02 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 04:54:21 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ typedef struct s_data
 	int			player;
 	int			sleep;
 	int			ldscrn_len;
+	t_img		**col;
+	int			coln;
+	int			newgame;
+	int			xmove;
+	int			ymove;
 }				t_data;
 
 t_mapdata		*mapdata(void);
@@ -75,6 +80,7 @@ void			flood_fill(char **map, int i, int j);
 char	        *ft_itoa(int n);
 char	        *ft_strdup(const char *str);
 char	        *ft_strjoin(char *s1, char *s2);
+int				reset(int keycode);
 size_t          ft_strlen(const char *str);
 void	        render(int i, int ft);
 void            render_intro(char *path, int frames, int flag);

@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:57:03 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/04 17:04:45 by phanta           ###   ########.fr       */
+/*   Updated: 2024/03/14 05:11:57 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int     choose(t_data *data)
 		render_player_sel();
 	else if(data->state==4)
 		levels();
+	//printf("state=%i\n", data->state);
 }
 
 int	main(int argc, char **argv)//keep argc and argv for secret commands?
@@ -37,8 +38,12 @@ int	main(int argc, char **argv)//keep argc and argv for secret commands?
 	data()->flag_menu=0;
 	data()->state=1;
 	data()->lvl=0;
+	data()->newgame=1;
+	data()->xmove=0;
+	data()->ymove=0;
 	mlx_loop_hook(data()->mlx, choose, data());
     mlx_hook(data()->win, 02, 1L << 0, megahook, NULL);	
 	mlx_hook(data()->win, 17, 1L << 2, closewin, NULL);
+	mlx_hook(data()->win, 03, 1L << 1, reset, NULL);
 	mlx_loop(data()->mlx);
 }
