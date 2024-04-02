@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/04/01 11:33:25 by phanta           ###   ########.fr       */
+/*   Updated: 2024/04/02 21:46:23 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ void			render_player_sel(void);
 int				levels(void);
 void			evil_render_intro(char *path, int frames);
 void			end_loadscreen(void);
+void			move_check(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:28:33 by phanta            #+#    #+#             */
-/*   Updated: 2024/04/02 13:46:50 by phanta           ###   ########.fr       */
+/*   Updated: 2024/04/02 21:50:36 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@ int levels(void)
 	//put loop animations here
 	if(!data()->newgame)
 	{
+		if((timern()-data()->last_frame)>14)
+		{
+		(mapdata()->playery)=(mapdata()->playery)+data()->ymove;
+		(mapdata()->playerx)=(mapdata()->playerx)+data()->xmove;
+		move_check();
+		}
 		if((timern()-data()->last_frame)>15)
 		{
-			//if difference between last frame timestamp and timern bigger than time between frames (15ms?)
-			(mapdata()->playery)=(mapdata()->playery)+data()->ymove;
-			(mapdata()->playerx)=(mapdata()->playerx)+data()->xmove;
+			
 			printf("timern=%i\n", timern()-data()->last_frame);
 			render(-1, 0);
 			data()->last_frame=timern();

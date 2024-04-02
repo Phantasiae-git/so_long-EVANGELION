@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 06:57:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/04/02 13:48:31 by phanta           ###   ########.fr       */
+/*   Updated: 2024/04/02 21:46:00 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,9 @@ void collectible(int y, int x)
 	put_img_pbp(data()->col[data()->coln], x*64, y*64);
 }
 
-void	render(int i, int ft)
+void move_check(void)
 {
-	int	j;
-	int a;
-	int b;
-
-	if(ft)
-		images();
-	if(mapdata()->map[(mapdata()->playery+10)/64] \
+		if(mapdata()->map[(mapdata()->playery+10)/64] \
 			[(mapdata()->playerx+10)/64] == '1' \
 			|| (mapdata()->map[(mapdata()->playery+10)/64][(mapdata()->playerx+10)/64] == 'E' && mapdata()->collectibles))
 	{
@@ -148,6 +142,16 @@ void	render(int i, int ft)
 		(mapdata()->playerx)=(mapdata()->playerx)-data()->xmove;
 		return;
 	}
+}
+ 
+void	render(int i, int ft)
+{
+	int	j;
+	int a;
+	int b;
+
+	if(ft)
+		images();
 	mlx_put_image_to_window(data()->mlx, data()->win, data()->image[5], 0, 0);//bg
 /* 	while (++i < mapdata()->height)
 	{
