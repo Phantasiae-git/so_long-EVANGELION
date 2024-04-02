@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:03:49 by phanta            #+#    #+#             */
-/*   Updated: 2024/03/14 17:17:12 by phanta           ###   ########.fr       */
+/*   Updated: 2024/04/01 11:33:25 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_data
 	int			ymove;
 	int			xenemy;
 	int			yenemy;
+	int			last_frame;
 	t_img		*enemy;
 }				t_data;
 
@@ -80,7 +81,9 @@ t_data			*data(void);
 t_img			*img(void);
 
 void			flood_fill(char **map, int i, int j);
+void			put_img_pbp(t_img *image, int x, int y);
 char	        *ft_itoa(int n);
+int				timern(void);
 char	        *ft_strdup(const char *str);
 char	        *ft_strjoin(char *s1, char *s2);
 int				reset(int keycode);

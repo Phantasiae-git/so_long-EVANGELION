@@ -6,7 +6,7 @@
 /*   By: phanta <phanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 06:57:37 by rfontes-          #+#    #+#             */
-/*   Updated: 2024/03/14 19:07:17 by phanta           ###   ########.fr       */
+/*   Updated: 2024/04/02 13:48:31 by phanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,11 @@ void	put_img_pbp(t_img *image, int x, int y)
 		{
 			color=get_color(image, j, i);
 			if(color!= 0xFF000000)
-				my_mlx_pixel_put(holder, (x+j), (y+i), color);//mlx_pixel_put(data()->mlx, data()->win, (x+j), (y+i), color);
+				mlx_pixel_put(data()->mlx, data()->win, (x+j), (y+i), color);//my_mlx_pixel_put(holder, (x+j), (y+i), color);//
 		}
 	}
-	mlx_put_image_to_window(data()->mlx, data()->win, holder->img, x, y);
-	mlx_destroy_image(data()->mlx, holder->img);
+	//mlx_put_image_to_window(data()->mlx, data()->win, holder->img, x, y);
+	//mlx_destroy_image(data()->mlx, holder->img);
 	free(holder);
 }
 
@@ -114,7 +114,7 @@ void	render(int i, int ft)
 
 	if(ft)
 		images();
-		if(mapdata()->map[(mapdata()->playery+10)/64] \
+	if(mapdata()->map[(mapdata()->playery+10)/64] \
 			[(mapdata()->playerx+10)/64] == '1' \
 			|| (mapdata()->map[(mapdata()->playery+10)/64][(mapdata()->playerx+10)/64] == 'E' && mapdata()->collectibles))
 	{
@@ -185,5 +185,4 @@ void	render(int i, int ft)
 	}
 	put_img_pbp(img(), mapdata()->playerx, mapdata()->playery);
 	put_img_pbp(data()->enemy, data()->xenemy-64, data()->yenemy-128);
-	
 }
